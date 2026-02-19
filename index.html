@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WiFi Indosat HiFi - Internet Cepat & Stabil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --magenta: #E91E63;
+            --pink: #FF4081;
+            --orange: #FF6D00;
+            --coral: #FF5722;
+            --bg-light: #FAFAFA;
+            --bg-warm: #FFF8F0;
+            --text-dark: #1A1A2E;
+            --text-muted: #6B7280;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-warm);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background: 
+                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(233, 30, 99, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 80% 20%, rgba(255, 109, 0, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse 50% 30% at 50% 80%, rgba(255, 64, 129, 0.06) 0%, transparent 50%);
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float-particle 20s infinite ease-in-out;
+        }
+
+        @keyframes float-particle {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-30px) rotate(90deg); }
+            50% { transform: translateY(-10px) rotate(180deg); }
+            75% { transform: translateY(-40px) rotate(270deg); }
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0.75rem 1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(233, 30, 99, 0.1);
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            background: linear-gradient(135deg, var(--magenta), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn-gradient {
+            position: relative;
+            padding: 0.875rem 1.75rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: white;
+            background: linear-gradient(135deg, var(--magenta), var(--pink), var(--orange));
+            background-size: 200% 200%;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(233, 30, 99, 0.3);
+        }
+
+        .btn-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(233, 30, 99, 0.4);
+        }
+
+        .btn-gradient:hover::before {
+            left: 100%;
+        }
+
+        .btn-gradient:active {
+            transform: scale(0.98);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 5rem 1rem 3rem;
+            position: relative;
+        }
+
+        .orbit-container {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            flex-shrink: 0;
+        }
+
+        .orbit-ring {
+            position: absolute;
+            border: 2px solid;
+            border-radius: 50%;
+            animation: orbit-spin 20s linear infinite;
+        }
+
+        .orbit-ring-1 {
+            width: 100%;
+            height: 100%;
+            border-color: rgba(233, 30, 99, 0.2);
+            animation-duration: 25s;
+        }
+
+        .orbit-ring-2 {
+            width: 75%;
+            height: 75%;
+            top: 12.5%;
+            left: 12.5%;
+            border-color: rgba(255, 109, 0, 0.2);
+            animation-duration: 18s;
+            animation-direction: reverse;
+        }
+
+        .orbit-ring-3 {
+            width: 50%;
+            height: 50%;
+            top: 25%;
+            left: 25%;
+            border-color: rgba(255, 64, 129, 0.3);
+            animation-duration: 12s;
+        }
+
+        @keyframes orbit-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .orbit-dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: linear-gradient(135deg, var(--magenta), var(--orange));
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(233, 30, 99, 0.6);
+        }
+
+        .orbit-dot-1 { top: -5px; left: 50%; }
+        .orbit-dot-2 { bottom: -5px; left: 25%; }
+        .orbit-dot-3 { top: 25%; right: -5px; }
+
+        .center-device {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 190px;
+            background: linear-gradient(180deg, #2D2D2D 0%, #1A1A1A 100%);
+            border-radius: 20px;
+            padding: 6px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+            animation: device-float 4s ease-in-out infinite;
+        }
+
+        @keyframes device-float {
+            0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+            50% { transform: translate(-50%, -50%) translateY(-10px); }
+        }
+
+        .device-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--magenta), var(--orange));
+            border-radius: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .device-screen::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: screen-shine 3s infinite;
+        }
+
+        @keyframes screen-shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .floating-wa {
+            position: absolute;
+            bottom: -20px;
+            right: -15px;
+            width: 50px;
+            height: 50px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            animation: wa-bounce 2s ease-in-out infinite;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        @keyframes wa-bounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-8px) scale(1.05); }
+        }
+
+        .badge-promo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 1rem;
+            background: linear-gradient(135deg, rgba(233, 30, 99, 0.1), rgba(255, 109, 0, 0.1));
+            border: 1px solid rgba(233, 30, 99, 0.2);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--magenta);
+            animation: badge-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes badge-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(233, 30, 99, 0.2); }
+            50% { box-shadow: 0 0 0 8px rgba(233, 30, 99, 0); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+        }
+
+        .package-card {
+            background: linear-gradient(135deg, #FFE5EC 0%, #FFF0E5 100%);
+            border-radius: 24px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .package-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, var(--magenta), var(--pink), var(--orange));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 0;
+        }
+
+        .package-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 20px 50px rgba(233, 30, 99, 0.2);
+            border-color: var(--magenta);
+        }
+
+        .package-card:hover::before { opacity: 0.05; }
+        .package-card > * { position: relative; z-index: 1; }
+
+        .speed-badge {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--magenta), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        .promo-box {
+            background: linear-gradient(135deg, var(--magenta), var(--orange));
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .price-tag {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            border-radius: 20px;
+            background: white;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(233, 30, 99, 0.1);
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(233, 30, 99, 0.1);
+            border-color: var(--magenta);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 0.75rem;
+            background: linear-gradient(135deg, rgba(233, 30, 99, 0.1), rgba(255, 109, 0, 0.1));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover .feature-icon {
+            background: linear-gradient(135deg, var(--magenta), var(--orange));
+        }
+
+        .feature-item:hover .feature-icon svg { stroke: white; }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: 500px;
+            max-height: 95vh;
+            background: white;
+            border-radius: 24px 24px 0 0;
+            padding: 1.25rem;
+            overflow-y: auto;
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .form-group { margin-bottom: 1rem; }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: var(--text-dark);
+            font-size: 0.875rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid rgba(233, 30, 99, 0.2);
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--magenta);
+            box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+        }
+
+        .form-input.error {
+            border-color: #EF4444;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .file-upload {
+            border: 2px dashed rgba(233, 30, 99, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(233, 30, 99, 0.02);
+        }
+
+        .file-upload:hover {
+            border-color: var(--magenta);
+            background: rgba(233, 30, 99, 0.05);
+        }
+
+        .file-upload.has-file {
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .preview-container {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.75rem;
+            justify-content: center;
+        }
+
+        .preview-image {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #10B981;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: rgba(233, 30, 99, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--magenta), var(--orange));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Success Notification */
+        .notification-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .notification-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: white;
+            padding: 1.5rem;
+            border-radius: 24px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            max-width: 95%;
+            width: 400px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .notification.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .notification-image {
+            width: 100%;
+            border-radius: 12px;
+            margin: 1rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .btn-gradient.loading .spinner { display: inline-block; }
+        .btn-gradient.loading .btn-text { opacity: 0; }
+
+        .fixed-wa {
+            position: fixed;
+            bottom: 1.25rem;
+            right: 1.25rem;
+            width: 52px;
+            height: 52px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            z-index: 1500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .fixed-wa:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 35px rgba(37, 211, 102, 0.5);
+        }
+
+        .promo-details {
+            background: rgba(233, 30, 99, 0.05);
+            border-radius: 12px;
+            padding: 0.75rem;
+            margin-top: 0.75rem;
+            font-size: 0.75rem;
+        }
+
+        .promo-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.4rem 0;
+            border-bottom: 1px solid rgba(233, 30, 99, 0.1);
+        }
+
+        .promo-row:last-child { border-bottom: none; }
+
+        @media (min-width: 640px) {
+            .header { padding: 1rem 2rem; }
+            .logo { font-size: 1.5rem; }
+            .btn-gradient { padding: 1rem 2rem; font-size: 1rem; }
+            .hero { padding: 6rem 2rem 4rem; }
+            .orbit-container { width: 320px; height: 320px; }
+            .center-device { width: 140px; height: 220px; }
+            .speed-badge { font-size: 3rem; }
+            .price-tag { font-size: 1.5rem; }
+            .package-card { padding: 1.75rem; }
+            .modal-content { padding: 1.5rem; }
+        }
+
+        @media (min-width: 1024px) {
+            .hero { padding: 8rem 2rem 4rem; }
+            .orbit-container { width: 380px; height: 380px; }
+            .center-device { width: 160px; height: 250px; border-radius: 25px; }
+            .device-screen { border-radius: 18px; }
+            .floating-wa { width: 60px; height: 60px; bottom: -25px; right: -20px; }
+            .speed-badge { font-size: 3.5rem; }
+            .price-tag { font-size: 1.75rem; }
+            .package-card { padding: 2rem; }
+            .feature-item { padding: 2rem 1.5rem; }
+            .feature-icon { width: 70px; height: 70px; }
+        }
+
+        @supports (padding-bottom: env(safe-area-inset-bottom)) {
+            .fixed-wa { bottom: calc(1.25rem + env(safe-area-inset-bottom)); }
+            .modal-content { padding-bottom: calc(1.25rem + env(safe-area-inset-bottom)); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    <div id="particles"></div>
+
+    <header class="header" id="header">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="logo">Indosat HiFi</div>
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="#paket" class="text-gray-600 hover:text-pink-600 transition-colors font-medium text-sm">Paket</a>
+                <a href="#keunggulan" class="text-gray-600 hover:text-pink-600 transition-colors font-medium text-sm">Keunggulan</a>
+                <button class="btn-gradient text-xs py-2.5 px-5" onclick="openModal('50 Mbps')">Hubungi Kami</button>
+            </nav>
+            <button class="md:hidden w-9 h-9 flex items-center justify-center" onclick="window.open('https://wa.me/6285358741228', '_blank')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#25D366">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
+            <div class="flex-1 text-center lg:text-left reveal">
+                <div class="badge-promo mb-4 inline-flex">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                    </svg>
+                    Promo Spesial - Gratis Instalasi
+                </div>
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-4" style="color: var(--text-dark);">
+                    Daftar WiFi Indosat HiFi 
+                    <span class="block" style="background: linear-gradient(135deg, var(--magenta), var(--orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Sekarang!</span>
+                </h1>
+                <p class="text-base sm:text-lg lg:text-xl text-gray-600 mb-6 max-w-lg mx-auto lg:mx-0">
+                    Internet Cepat, Stabil & Tanpa Ribet. Nikmati koneksi fiber optic terbaik untuk keluarga Indonesia.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+                    <button class="btn-gradient" onclick="openModal('50 Mbps')">
+                        <span class="btn-text">Daftar Sekarang</span>
+                    </button>
+                    <a href="#paket" class="px-6 py-3.5 rounded-full border-2 border-pink-500 text-pink-600 font-semibold hover:bg-pink-50 transition-all text-center text-sm">
+                        Lihat Paket
+                    </a>
+                </div>
+            </div>
+            
+            <div class="flex-1 flex justify-center reveal" style="transition-delay: 0.2s;">
+                <div class="orbit-container">
+                    <div class="orbit-ring orbit-ring-1"><div class="orbit-dot orbit-dot-1"></div></div>
+                    <div class="orbit-ring orbit-ring-2"><div class="orbit-dot orbit-dot-2"></div></div>
+                    <div class="orbit-ring orbit-ring-3"><div class="orbit-dot orbit-dot-3"></div></div>
+                    <div class="center-device">
+                        <div class="device-screen">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+                                <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+                                <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+                                <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+                                <circle cx="12" cy="20" r="1"/>
+                            </svg>
+                            <p class="font-semibold mt-1 text-sm">HiFi</p>
+                            <p class="text-xs opacity-80">Ultra Fast</p>
+                        </div>
+                    </div>
+                    <div class="floating-wa" onclick="window.open('https://wa.me/6285358741228', '_blank')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="paket" class="py-12 sm:py-16 lg:py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-10 lg:mb-14 reveal">
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3">Pilih Paket Internet Anda</h2>
+                <p class="text-gray-600 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto">Sesuaikan dengan kebutuhan keluarga Anda. Semua paket sudah termasuk instalasi gratis.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6" id="packageGrid"></div>
+            <div class="mt-8 lg:mt-12 text-center reveal">
+                <div class="glass-card inline-block p-4 sm:p-6">
+                    <div class="flex flex-col sm:flex-row items-center gap-3 text-left">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r from-pink-500 to-orange-500 flex items-center justify-center flex-shrink-0">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-800 text-sm sm:text-base">Harga sudah termasuk PPN 11%</p>
+                            <p class="text-gray-600 text-xs sm:text-sm">Gratis biaya instalasi/pemasangan untuk semua paket</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="keunggulan" class="py-12 sm:py-16 lg:py-20 px-4 bg-gradient-to-b from-transparent to-white/50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-10 lg:mb-14 reveal">
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3">Kenapa Pilih Indosat HiFi?</h2>
+                <p class="text-gray-600 text-sm sm:text-base lg:text-lg">Layanan internet terbaik untuk keluarga Indonesia</p>
+            </div>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6" id="featureGrid"></div>
+        </div>
+    </section>
+
+    <section class="py-12 sm:py-16 lg:py-20 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass-card p-6 sm:p-8 lg:p-12 text-center reveal relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-48 sm:w-64 h-48 sm:h-64 bg-gradient-to-br from-pink-500/20 to-orange-500/20 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-0 left-0 w-32 sm:w-48 h-32 sm:h-48 bg-gradient-to-tr from-pink-500/10 to-transparent rounded-full blur-2xl"></div>
+                <div class="relative z-10">
+                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 lg:mb-4">Siap Bergabung dengan HiFi?</h2>
+                    <p class="text-gray-600 text-sm sm:text-base lg:text-lg mb-6 lg:mb-8 max-w-xl mx-auto">Daftar sekarang dan nikmati internet cepat tanpa batas. Proses cepat, pemasangan gratis!</p>
+                    <button class="btn-gradient" onclick="openModal('50 Mbps')">
+                        <span class="btn-text">Daftar Sekarang</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 lg:py-12 px-4 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="logo text-xl lg:text-2xl">Indosat HiFi</div>
+                <p class="text-gray-500 text-xs sm:text-sm text-center md:text-left">Layanan Internet Fiber Optic Terbaik untuk Indonesia</p>
+                <div class="flex items-center gap-3">
+                    <a href="https://wa.me/6285358741228" target="_blank" class="w-9 h-9 rounded-full bg-green-500 flex items-center justify-center hover:scale-110 transition-transform">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-gray-100 text-center text-gray-400 text-xs">
+                <p>Indosat HiFi - Layanan Internet Fiber Optic</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="fixed-wa" onclick="window.open('https://wa.me/6285358741228', '_blank')">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-bold">Form Pendaftaran</h3>
+                <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+            <form id="registrationForm" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label class="form-label">Paket Dipilih</label>
+                    <input type="text" id="selectedPackage" class="form-input bg-gray-50" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Nama Lengkap <span class="text-red-500">*</span></label>
+                    <input type="text" id="nama" class="form-input" placeholder="Masukkan nama lengkap" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Nomor HP <span class="text-red-500">*</span></label>
+                    <input type="tel" id="hp" class="form-input" placeholder="Contoh: 08123456789" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email <span class="text-red-500">*</span></label>
+                    <input type="email" id="email" class="form-input" placeholder="email@contoh.com" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Alamat Lengkap <span class="text-red-500">*</span></label>
+                    <textarea id="alamat" class="form-input" rows="2" placeholder="Masukkan alamat lengkap instalasi" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Foto KTP <span class="text-red-500">*</span></label>
+                    <div class="file-upload" id="ktpUpload" onclick="document.getElementById('ktp').click()">
+                        <input type="file" id="ktp" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'ktpUpload', 'ktp')">
+                        <svg class="mx-auto mb-1" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E91E63" stroke-width="1.5">
+                            <rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M15 8h.01"/><path d="M17 16H7"/>
+                        </svg>
+                        <p class="text-gray-500 text-xs" id="ktpText">Klik untuk foto KTP</p>
+                        <div id="ktpPreviewContainer" class="preview-container hidden"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Foto Rumah <span class="text-red-500">*</span></label>
+                    <div class="file-upload" id="rumahUpload" onclick="document.getElementById('rumah').click()">
+                        <input type="file" id="rumah" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'rumahUpload', 'rumah')">
+                        <svg class="mx-auto mb-1" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E91E63" stroke-width="1.5">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+                        </svg>
+                        <p class="text-gray-500 text-xs" id="rumahText">Klik untuk foto rumah</p>
+                        <div id="rumahPreviewContainer" class="preview-container hidden"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Foto Meteran Listrik <span class="text-red-500">*</span></label>
+                    <div class="file-upload" id="meteranUpload" onclick="document.getElementById('meteran').click()">
+                        <input type="file" id="meteran" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'meteranUpload', 'meteran')">
+                        <svg class="mx-auto mb-1" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E91E63" stroke-width="1.5">
+                            <rect x="4" y="6" width="16" height="14" rx="2"/><path d="M8 6V4"/><path d="M16 6V4"/><path d="M8 10h.01"/><path d="M12 10h.01"/><path d="M16 10h.01"/>
+                        </svg>
+                        <p class="text-gray-500 text-xs" id="meteranText">Klik untuk foto meteran</p>
+                        <div id="meteranPreviewContainer" class="preview-container hidden"></div>
+                    </div>
+                </div>
+                <button type="submit" class="btn-gradient w-full mt-4" id="submitBtn">
+                    <span class="btn-text">Kirim Pendaftaran</span>
+                    <span class="spinner absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Notification -->
+    <div class="notification-overlay" id="notificationOverlay"></div>
+    <div class="notification" id="notification">
+        <div class="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-3">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+        </div>
+        <h4 class="text-lg font-bold mb-2 text-gray-800">Kartu Pendaftaran Siap!</h4>
+        <p class="text-gray-600 text-xs mb-3">Klik gambar di bawah untuk download, lalu kirim ke WhatsApp admin</p>
+        <canvas id="resultCanvas" class="notification-image hidden"></canvas>
+        <img id="resultImage" class="notification-image" alt="Kartu Pendaftaran">
+        <div class="flex gap-2 mt-3">
+            <button class="btn-gradient flex-1 text-sm py-3" id="downloadBtn">
+                <span class="btn-text">Download Gambar</span>
+            </button>
+            <button class="flex-1 py-3 px-4 rounded-full bg-green-500 text-white font-semibold text-sm hover:bg-green-600 transition-colors" onclick="sendToWhatsApp()">
+                Kirim ke WA
+            </button>
+        </div>
+        <button class="w-full mt-2 py-2 text-gray-500 text-xs hover:text-gray-700" onclick="closeNotification()">Tutup</button>
+    </div>
+
+    <script>
+        // Initialize variables first
+        const uploadedPhotos = { ktp: null, rumah: null, meteran: null };
+        let currentImageData = null;
+
+        // Data Paket
+        const packages = [
+            { speed: '20', unit: 'Mbps', name: 'HiFi Lite', price: '205.350', note: 'Khusus area tertentu', promos: [] },
+            { speed: '50', unit: 'Mbps', name: 'HiFi 50', price: '271.950', promos: [
+                { label: 'Bayar 3 Gratis 1', value: '815.850' },
+                { label: 'Bayar 5 Gratis 2', value: '1.359.750' },
+                { label: 'Bayar 8 Gratis 4', value: '2.175.600' }
+            ]},
+            { speed: '75', unit: 'Mbps', name: 'HiFi 75', price: '305.250', promos: [
+                { label: 'Bayar 3 Gratis 1', value: '915.750' },
+                { label: 'Bayar 5 Gratis 2', value: '1.526.250' },
+                { label: 'Bayar 8 Gratis 4', value: '2.442.000' }
+            ]},
+            { speed: '300', unit: 'Mbps', name: 'HiFi 300', price: '382.950', promos: [
+                { label: 'Bayar 3 Gratis 1', value: '1.148.850' },
+                { label: 'Bayar 5 Gratis 2', value: '1.914.750' },
+                { label: 'Bayar 8 Gratis 4', value: '3.060.000' }
+            ], popular: true },
+            { speed: '1', unit: 'Gbps', name: 'HiFi Ultra', price: '1.110.000', promos: [
+                { label: 'Bayar 3 Gratis 1', value: '3.330.000' },
+                { label: 'Bayar 5 Gratis 2', value: '5.550.000' },
+                { label: 'Bayar 8 Gratis 4', value: '8.880.000' }
+            ]}
+        ];
+
+        // Features Data
+        const features = [
+            { icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E91E63" stroke-width="1.5"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg>`, title: 'Fiber Optic Stabil', desc: 'Koneksi super cepat' },
+            { icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E91E63" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`, title: 'Internet 24 Jam', desc: 'Non-stop tanpa batas' },
+            { icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E91E63" stroke-width="1.5"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>`, title: 'Gratis Instalasi', desc: 'Biaya pasang Rp 0' },
+            { icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E91E63" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>`, title: 'Support Cepat', desc: 'Respon 24/7' }
+        ];
+
+        function initPackages() {
+            const grid = document.getElementById('packageGrid');
+            grid.innerHTML = packages.map((pkg, index) => `
+                <div class="package-card reveal" style="transition-delay: ${index * 0.08}s;">
+                    ${pkg.popular ? '<div class="promo-box absolute top-3 right-3">Populer</div>' : ''}
+                    <div class="mb-2"><span class="text-gray-500 text-xs font-medium">${pkg.name}</span></div>
+                    <div class="flex items-baseline gap-1 mb-1">
+                        <span class="speed-badge">${pkg.speed}</span>
+                        <span class="text-base lg:text-lg font-semibold text-gray-600">${pkg.unit}</span>
+                    </div>
+                    <div class="mb-3">
+                        <span class="text-gray-500 text-xs">per bulan</span>
+                        <div class="price-tag">Rp ${pkg.price}</div>
+                    </div>
+                    ${pkg.note ? `<p class="text-xs text-gray-400 italic mb-3">${pkg.note}</p>` : ''}
+                    ${pkg.promos.length > 0 ? `
+                        <div class="promo-details">
+                            ${pkg.promos.map(p => `<div class="promo-row"><span class="text-gray-600">${p.label}</span><span class="font-semibold text-xs">Rp ${p.value}</span></div>`).join('')}
+                        </div>
+                    ` : ''}
+                    <button class="btn-gradient w-full mt-3 text-sm" onclick="openModal('${pkg.speed} ${pkg.unit}')">
+                        <span class="btn-text">Pilih Paket</span>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function initFeatures() {
+            const grid = document.getElementById('featureGrid');
+            grid.innerHTML = features.map((feat, index) => `
+                <div class="feature-item reveal" style="transition-delay: ${index * 0.08}s;">
+                    <div class="feature-icon">${feat.icon}</div>
+                    <h3 class="font-bold text-sm lg:text-base mb-1">${feat.title}</h3>
+                    <p class="text-gray-500 text-xs">${feat.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        function createParticles() {
+            const container = document.getElementById('particles');
+            container.innerHTML = '';
+            const colors = ['rgba(233, 30, 99, 0.12)', 'rgba(255, 109, 0, 0.12)', 'rgba(255, 64, 129, 0.1)'];
+            for (let i = 0; i < 12; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const size = Math.random() * 80 + 20;
+                particle.style.cssText = `
+                    width: ${size}px; height: ${size}px;
+                    background: ${colors[Math.floor(Math.random() * colors.length)]};
+                    left: ${Math.random() * 100}%; top: ${Math.random() * 100}%;
+                    animation-delay: ${Math.random() * 5}s;
+                    animation-duration: ${15 + Math.random() * 10}s;
+                `;
+                container.appendChild(particle);
+            }
+        }
+
+        function handleScroll() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 30) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        }
+
+        function handleReveal() {
+            document.querySelectorAll('.reveal').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add('visible');
+            });
+        }
+
+        function openModal(packageName) {
+            document.getElementById('selectedPackage').value = packageName;
+            document.getElementById('modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            updateProgress();
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function handleFileUpload(input, containerId, type) {
+            const container = document.getElementById(containerId);
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedPhotos[type] = e.target.result;
+                    document.getElementById(type + 'Text').textContent = 'Foto berhasil diambil';
+                    document.getElementById(type + 'PreviewContainer').innerHTML = `<img src="${e.target.result}" class="preview-image" alt="${type}">`;
+                    document.getElementById(type + 'PreviewContainer').classList.remove('hidden');
+                    container.classList.add('has-file');
+                };
+                reader.readAsDataURL(file);
+                updateProgress();
+            }
+        }
+
+        function updateProgress() {
+            const form = document.getElementById('registrationForm');
+            const inputs = form.querySelectorAll('input[required], textarea[required]');
+            let filled = 0;
+            inputs.forEach(input => {
+                if (input.type === 'file') { if (input.files.length > 0) filled++; }
+                else if (input.value.trim()) filled++;
+            });
+            document.getElementById('progressFill').style.width = (filled / inputs.length) * 100 + '%';
+        }
+
+        function validateForm() {
+            let isValid = true;
+            ['nama', 'hp', 'email', 'alamat'].forEach(field => {
+                const input = document.getElementById(field);
+                if (!input.value.trim()) {
+                    input.classList.add('error');
+                    isValid = false;
+                    setTimeout(() => input.classList.remove('error'), 500);
+                }
+            });
+            ['ktp', 'rumah', 'meteran'].forEach(file => {
+                if (!document.getElementById(file).files.length) {
+                    const container = document.getElementById(file + 'Upload');
+                    container.style.borderColor = '#EF4444';
+                    isValid = false;
+                    setTimeout(() => container.style.borderColor = '', 500);
+                }
+            });
+            return isValid;
+        }
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+            if (!validateForm()) return;
+
+            const btn = document.getElementById('submitBtn');
+            btn.classList.add('loading');
+
+            const nama = document.getElementById('nama').value;
+            const hp = document.getElementById('hp').value;
+            const email = document.getElementById('email').value;
+            const alamat = document.getElementById('alamat').value;
+            const paket = document.getElementById('selectedPackage').value;
+
+            // Generate image card
+            await generateRegistrationCard(nama, hp, email, alamat, paket);
+
+            btn.classList.remove('loading');
+            closeModal();
+            showNotification();
+        }
+
+        async function generateRegistrationCard(nama, hp, email, alamat, paket) {
+            const canvas = document.getElementById('resultCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            const cardWidth = 800;
+            const cardHeight = 1200;
+            canvas.width = cardWidth;
+            canvas.height = cardHeight;
+
+            // Background gradient
+            const bgGrad = ctx.createLinearGradient(0, 0, cardWidth, cardHeight);
+            bgGrad.addColorStop(0, '#1a1a2e');
+            bgGrad.addColorStop(0.5, '#16213e');
+            bgGrad.addColorStop(1, '#0f0f23');
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, cardWidth, cardHeight);
+
+            // Decorative circles
+            ctx.beginPath();
+            ctx.arc(cardWidth - 100, 100, 200, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(233, 30, 99, 0.15)';
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.arc(100, cardHeight - 100, 150, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255, 109, 0, 0.15)';
+            ctx.fill();
+
+            // Header bar
+            const headerGrad = ctx.createLinearGradient(0, 0, cardWidth, 0);
+            headerGrad.addColorStop(0, '#E91E63');
+            headerGrad.addColorStop(0.5, '#FF4081');
+            headerGrad.addColorStop(1, '#FF6D00');
+            ctx.fillStyle = headerGrad;
+            ctx.fillRect(0, 0, cardWidth, 100);
+
+            // Logo text
+            ctx.font = 'bold 42px Arial';
+            ctx.fillStyle = 'white';
+            ctx.textAlign = 'center';
+            ctx.fillText('INDOSAT HIFI', cardWidth / 2, 65);
+
+            // Title
+            ctx.font = 'bold 28px Arial';
+            ctx.fillStyle = 'white';
+            ctx.fillText('KARTU PENDAFTARAN', cardWidth / 2, 160);
+
+            // Data section background
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+            roundRect(ctx, 40, 190, cardWidth - 80, 280, 15, true, false);
+
+            // Data fields
+            ctx.textAlign = 'left';
+            ctx.font = '16px Arial';
+            ctx.fillStyle = '#aaa';
+            let yPos = 230;
+            const lineHeight = 55;
+
+            const dataFields = [
+                { label: 'NAMA', value: nama },
+                { label: 'NO. HP', value: hp },
+                { label: 'EMAIL', value: email },
+                { label: 'PAKET', value: paket }
+            ];
+
+            dataFields.forEach(field => {
+                ctx.fillStyle = '#888';
+                ctx.font = '14px Arial';
+                ctx.fillText(field.label, 70, yPos);
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 20px Arial';
+                ctx.fillText(field.value, 70, yPos + 25);
+                yPos += lineHeight;
+            });
+
+            // Alamat section
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+            roundRect(ctx, 40, 490, cardWidth - 80, 100, 15, true, false);
+            ctx.fillStyle = '#888';
+            ctx.font = '14px Arial';
+            ctx.fillText('ALAMAT INSTALASI', 70, 525);
+            ctx.fillStyle = 'white';
+            ctx.font = '18px Arial';
+            const alamatLines = wrapText(ctx, alamat, cardWidth - 160);
+            alamatLines.forEach((line, i) => {
+                ctx.fillText(line, 70, 555 + i * 22);
+            });
+
+            // Photo section title
+            ctx.textAlign = 'center';
+            ctx.font = 'bold 22px Arial';
+            ctx.fillStyle = 'white';
+            ctx.fillText('DOKUMEN LAMPIRAN', cardWidth / 2, 640);
+
+            // Photos
+            const photoSize = 200;
+            const photoGap = 30;
+            const totalPhotoWidth = photoSize * 3 + photoGap * 2;
+            const startX = (cardWidth - totalPhotoWidth) / 2;
+            const photoY = 670;
+
+            const photoLabels = ['KTP', 'RUMAH', 'METERAN'];
+            const photoKeys = ['ktp', 'rumah', 'meteran'];
+
+            for (let i = 0; i < 3; i++) {
+                const x = startX + i * (photoSize + photoGap);
+                
+                // Photo frame
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+                roundRect(ctx, x, photoY, photoSize, photoSize, 10, true, false);
+                
+                // Load and draw photo
+                if (uploadedPhotos[photoKeys[i]]) {
+                    try {
+                        const img = await loadImage(uploadedPhotos[photoKeys[i]]);
+                        ctx.save();
+                        roundRect(ctx, x, photoY, photoSize, photoSize, 10, false, true);
+                        ctx.clip();
+                        const scale = Math.max(photoSize / img.width, photoSize / img.height);
+                        const w = img.width * scale;
+                        const h = img.height * scale;
+                        ctx.drawImage(img, x - (w - photoSize) / 2, photoY - (h - photoSize) / 2, w, h);
+                        ctx.restore();
+                    } catch (e) {
+                        drawPhotoPlaceholder(ctx, x, photoY, photoSize, photoLabels[i]);
+                    }
+                } else {
+                    drawPhotoPlaceholder(ctx, x, photoY, photoSize, photoLabels[i]);
+                }
+
+                // Photo label
+                ctx.font = 'bold 16px Arial';
+                ctx.fillStyle = '#E91E63';
+                ctx.fillText(photoLabels[i], x + photoSize / 2, photoY + photoSize + 25);
+            }
+
+            // Timestamp
+            const now = new Date();
+            const timestamp = now.toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'short' });
+            ctx.font = '12px Arial';
+            ctx.fillStyle = '#666';
+            ctx.fillText('Dikirim: ' + timestamp, cardWidth / 2, cardHeight - 30);
+
+            // Footer bar
+            const footerGrad = ctx.createLinearGradient(0, 0, cardWidth, 0);
+            footerGrad.addColorStop(0, '#E91E63');
+            footerGrad.addColorStop(0.5, '#FF4081');
+            footerGrad.addColorStop(1, '#FF6D00');
+            ctx.fillStyle = footerGrad;
+            ctx.fillRect(0, cardHeight - 15, cardWidth, 15);
+
+            // Convert to image
+            currentImageData = canvas.toDataURL('image/jpeg', 0.9);
+            document.getElementById('resultImage').src = currentImageData;
+        }
+
+        function drawPhotoPlaceholder(ctx, x, y, size, label) {
+            ctx.strokeStyle = '#E91E63';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            roundRect(ctx, x + 2, y + 2, size - 4, size - 4, 8, false, true);
+            
+            ctx.fillStyle = '#666';
+            ctx.font = '14px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(label, x + size / 2, y + size / 2);
+        }
+
+        function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+            if (fill) ctx.fill();
+            if (stroke) ctx.stroke();
+        }
+
+        function loadImage(src) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = reject;
+                img.src = src;
+            });
+        }
+
+        function wrapText(ctx, text, maxWidth) {
+            const words = text.split(' ');
+            const lines = [];
+            let currentLine = '';
+            words.forEach(word => {
+                const testLine = currentLine + (currentLine ? ' ' : '') + word;
+                if (ctx.measureText(testLine).width > maxWidth && currentLine) {
+                    lines.push(currentLine);
+                    currentLine = word;
+                } else {
+                    currentLine = testLine;
+                }
+            });
+            if (currentLine) lines.push(currentLine);
+            return lines.slice(0, 2);
+        }
+
+        function showNotification() {
+            document.getElementById('notificationOverlay').classList.add('show');
+            document.getElementById('notification').classList.add('show');
+        }
+
+        function closeNotification() {
+            document.getElementById('notificationOverlay').classList.remove('show');
+            document.getElementById('notification').classList.remove('show');
+            resetForm();
+        }
+
+        function downloadImage() {
+            if (currentImageData) {
+                const link = document.createElement('a');
+                link.href = currentImageData;
+                link.download = 'pendaftaran_indosat_hifi_' + Date.now() + '.jpg';
+                link.click();
+            }
+        }
+
+        function sendToWhatsApp() {
+            const nama = document.getElementById('nama').value;
+            const hp = document.getElementById('hp').value;
+            const paket = document.getElementById('selectedPackage').value;
+            
+            const message = `Halo Admin Indosat HiFi, saya sudah mendaftar dengan data:
+
+Nama: ${nama}
+HP: ${hp}
+Paket: ${paket}
+
+*Saya lampirkan kartu pendaftaran berikut.*`;
+
+            const waLink = `https://wa.me/6285358741228?text=${encodeURIComponent(message)}`;
+            window.open(waLink, '_blank');
+        }
+
+        function resetForm() {
+            document.getElementById('registrationForm').reset();
+            ['ktp', 'rumah', 'meteran'].forEach(type => {
+                uploadedPhotos[type] = null;
+                document.getElementById(type + 'Text').textContent = type === 'ktp' ? 'Klik untuk foto KTP' : 
+                                   type === 'rumah' ? 'Klik untuk foto rumah' : 'Klik untuk foto meteran';
+                document.getElementById(type + 'PreviewContainer').innerHTML = '';
+                document.getElementById(type + 'PreviewContainer').classList.add('hidden');
+                document.getElementById(type + 'Upload').classList.remove('has-file');
+            });
+            document.getElementById('progressFill').style.width = '0%';
+            currentImageData = null;
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            initPackages();
+            initFeatures();
+            createParticles();
+            handleReveal();
+
+            document.getElementById('registrationForm').querySelectorAll('input, textarea').forEach(input => {
+                input.addEventListener('input', updateProgress);
+            });
+
+            document.getElementById('modal').addEventListener('click', function(e) {
+                if (e.target === this) closeModal();
+            });
+
+            document.getElementById('notificationOverlay').addEventListener('click', closeNotification);
+            
+            document.getElementById('downloadBtn').addEventListener('click', downloadImage);
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') { closeModal(); closeNotification(); }
+            });
+        });
+
+        window.addEventListener('scroll', function() {
+            handleScroll();
+            handleReveal();
+        });
+
+        window.addEventListener('resize', createParticles);
+    </script>
+</body>
+</html>
